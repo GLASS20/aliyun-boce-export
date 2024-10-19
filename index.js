@@ -102,8 +102,8 @@ const { execSync } = require('child_process');
     await browser.close();
 
     xlsx2j({
-      input: "results/result.xlsx",
-      output: "results/result.json"
+      input: path.join(downloadPath, 'result.xlsx'),
+      output: path.join(downloadPath, 'result.json')
     }, function (err, result) {
       if (err) {
         console.error(err);
