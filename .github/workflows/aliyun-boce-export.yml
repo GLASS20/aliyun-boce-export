@@ -38,6 +38,7 @@ jobs:
         git config user.email 'github-actions[bot]@users.noreply.github.com'
         ls results
         git checkout -b results
+        git rm -rf .
         git add results/
         git commit -m "Push results"
         git push origin results -f
