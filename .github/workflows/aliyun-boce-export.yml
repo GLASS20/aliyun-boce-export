@@ -37,6 +37,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
         ls results
         git add results/
         git commit -m "${{ steps.date.outputs.today }}"
