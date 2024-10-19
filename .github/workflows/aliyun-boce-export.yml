@@ -25,22 +25,19 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
-        
-        
+
+    - name: Get current date
+      run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
+
     - name: Install dependencies
-      run: npm install puppeteer
+      run: npm install
 
     - name: Run script to download file
-      run: node download.js
+      run: node index.js
 
     - name: Commit and push changes
       run: |
-        git config --global user.email "your-email@example.com"
-        git config --global user.name "FmgX"
-        ls downloads # 列出下载目录中的文件以验证文件是否存在
-        #如果需要则需要修改这个github.com-ping-result.xlsx，前面的就是自己填入的域名
-        git add downloads/github.com-ping-result.xlsx
-        git commit -m "Add downloaded file"
+        ls results
+        git add results/
+        git commit -m "${{ steps.date.outputs.today }}"
         git push -f
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

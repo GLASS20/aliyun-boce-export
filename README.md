@@ -6,8 +6,8 @@
 ## 使用方法
 - 使用到了Node.js和Puppeteer来使用无头浏览器来进行操作。
 ### 文件修改说明
-- **download.js** 修改36行“await inputElement.type('github.com'); // 替换为你获取的域名，不带http://”
-- **download.js** 修改78行“const finalPath = path.join(downloadPath, '**github.com**-ping-result.xlsx');”
+- **index.js** 修改36行“await inputElement.type('github.com'); // 替换为你获取的域名，不带http://”
+- **index.js** 修改78行“const finalPath = path.join(downloadPath, '**github.com**-ping-result.xlsx');”
 - **.github/workflows/aliyun-boce-export.yml**修改42行的“downloads/**github.com**-ping-result.xlsx” 跟随你的域名
 ### 其他文件及目录说明
 - **package.json** node.js的依赖什么的

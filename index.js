@@ -1,16 +1,17 @@
 const puppeteer = require('puppeteer');
+const xlsx2j = require("xlsx-to-json");
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
 (async () => {
   try {
-    const downloadPath = path.resolve(__dirname, 'downloads');
+    const downloadPath = path.resolve(__dirname, 'results');
     if (!fs.existsSync(downloadPath)) {
       fs.mkdirSync(downloadPath);
     }
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
 
     // 设置下载行为
@@ -26,14 +27,14 @@ const { execSync } = require('child_process');
     });
 
     // 导航到目标页面
-    await page.goto('https://boce.aliyun.com/detect/ping');
+    await page.goto('https://boce.aliyun.com/detect/http');
 
     // 在指定的 XPath 路径下输入内容
     console.log('查找输入框元素...');
     const [inputElement] = await page.$x('//*[@id="url1"]');
     if (inputElement) {
       console.log('输入框元素找到，输入内容...');
-      await inputElement.type('github.com'); // 替换为你获取的域名，不带http://
+      await inputElement.type('https://tohka.top');
     } else {
       throw new Error('输入框元素未找到');
     }
@@ -48,10 +49,8 @@ const { execSync } = require('child_process');
       throw new Error('第一个按钮元素未找到');
     }
 
-
     console.log('等待60秒...');
     await page.waitForTimeout(60000);
-
 
     // 点击另一个指定的 XPath 路径按钮
     console.log('查找下载按钮...');
@@ -75,7 +74,7 @@ const { execSync } = require('child_process');
     }
 
     const downloadedFile = downloadedFiles[0];
-    const finalPath = path.join(downloadPath, 'github.com-ping-result.xlsx');
+    const finalPath = path.join(downloadPath, 'result.xlsx');
     fs.renameSync(path.join(downloadPath, downloadedFile), finalPath);
     console.log(`已保存下载文件: ${finalPath}`);
 
@@ -84,6 +83,17 @@ const { execSync } = require('child_process');
     console.log('下载目录内容:', files);
 
     await browser.close();
+
+    xlsx2j({
+      input: "results/result.xlsx",
+      output: "results/result.json"
+    }, function (err, result) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(result);
+      }
+    });
   } catch (error) {
     console.error('脚本运行中发生错误:', error);
     process.exit(1); // 以非零状态码退出以表示失败
