@@ -26,9 +26,6 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Get current date
-      run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
-
     - name: Install dependencies
       run: npm install
 
@@ -40,6 +37,8 @@ jobs:
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
         ls results
+        git branch results
+        git checkout -b results
         git add results/
-        git commit -m "${{ steps.date.outputs.today }}"
-        git push -f
+        git commit -m "Push results"
+        git push origin results -f
