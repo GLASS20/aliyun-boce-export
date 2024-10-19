@@ -82,6 +82,23 @@ const { execSync } = require('child_process');
     const files = execSync(`ls ${downloadPath}`).toString();
     console.log('下载目录内容:', files);
 
+    let shareLink = "https://boce.aliyun.com/detect/http";
+    const [shareElement] = await page.$x('//*[@class="share-link"]');
+    if (shareElement) {
+      shareLink = await page.evaluate(el => el.getAttribute('title'), shareElement);
+      console.log(shareLink);
+    } else {
+      console.log('Element not found');
+    }
+
+    fs.writeFile(path.join(downloadPath, 'share_link.txt'), shareLink, err => {
+      if (err) {
+        console.error('Error writing file:', err);
+      } else {
+        console.log('Title written to share_link.txt');
+      }
+    });
+
     await browser.close();
 
     xlsx2j({
