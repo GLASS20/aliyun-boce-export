@@ -34,7 +34,7 @@ const { execSync } = require('child_process');
     const [inputElement] = await page.$x('//*[@id="url1"]');
     if (inputElement) {
       console.log('输入框元素找到，输入内容...');
-      await inputElement.type('https://tohka.top');
+      await inputElement.type('https://cirnoku.us.kg');
     } else {
       throw new Error('输入框元素未找到');
     }
