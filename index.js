@@ -49,8 +49,8 @@ const { execSync } = require('child_process');
       throw new Error('第一个按钮元素未找到');
     }
 
-    console.log('等待60秒...');
-    await page.waitForTimeout(60000);
+    console.log('等待80秒...');
+    await page.waitForTimeout(80000);
 
     // 点击另一个指定的 XPath 路径按钮
     console.log('查找下载按钮...');
